@@ -116,19 +116,6 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-a {
-    display: block;
-    text-align: center;
-    margin-top: 15px;
-    color: #007BFF;
-    text-decoration: none;
-    font-size: 12px;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
 </style>
 <body>
 <h2>Edit Profile</h2>
