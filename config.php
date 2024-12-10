@@ -1,5 +1,4 @@
 <?php
-// Konfigurasi database
 $host = 'localhost';
 $dbname = 'websitepkl';
 $username = 'postgres';

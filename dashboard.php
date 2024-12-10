@@ -2,7 +2,6 @@
 session_start();
 include('config.php');
 
-// Periksa apakah pengguna telah login
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
@@ -10,7 +9,6 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Ambil data pengguna dari database
 $stmt = $pdo->prepare("SELECT username, email, kelas, asal_sekolah FROM users WHERE id = :id");
 $stmt->execute(['id' => $user_id]);
 $user = $stmt->fetch();

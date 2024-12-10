@@ -2,7 +2,6 @@
 session_start();
 include('config.php');
 
-// Periksa apakah pengguna telah login
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
@@ -10,7 +9,6 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Jika form disubmit, update data pengguna
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_DEFAULT) : null;
@@ -19,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $asal_sekolah = $_POST['asal_sekolah'];
 
     if ($password) {
-        // Update dengan password baru
         $stmt = $pdo->prepare("UPDATE users SET username = :username, password = :password, email = :email, kelas = :kelas, asal_sekolah = :asal_sekolah WHERE id = :id");
         $stmt->execute([
             'username' => $username,
@@ -30,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'id' => $user_id
         ]);
     } else {
-        // Update tanpa password baru
         $stmt = $pdo->prepare("UPDATE users SET username = :username, email = :email, kelas = :kelas, asal_sekolah = :asal_sekolah WHERE id = :id");
         $stmt->execute([
             'username' => $username,
@@ -40,13 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'id' => $user_id
         ]);
     }
-
-    // Arahkan ke halaman dashboard setelah update
     header('Location: dashboard.php');
     exit();
 }
 
-// Ambil data pengguna untuk ditampilkan di formulir
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
 $stmt->execute(['id' => $user_id]);
 $user = $stmt->fetch();

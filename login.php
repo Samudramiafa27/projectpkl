@@ -6,13 +6,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Cek apakah username ada
     $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
     $stmt->execute(['username' => $username]);
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
-        // Simpan data ke session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         header('Location: dashboard.php');

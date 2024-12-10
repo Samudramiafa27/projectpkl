@@ -7,14 +7,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $kelas = $_POST['kelas'];
     $asal_sekolah = $_POST['asal_sekolah'];
-
-    // Cek apakah username sudah ada
     $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
     $stmt->execute(['username' => $username]);
     if ($stmt->rowCount() > 0) {
         echo "Username sudah digunakan!";
     } else {
-        // Menyimpan data pengguna baru
         $stmt = $pdo->prepare("INSERT INTO users (username, password, email, kelas, asal_sekolah) VALUES (:username, :password, :email, :kelas, :asal_sekolah)");
         $stmt->execute([
             'username' => $username,
